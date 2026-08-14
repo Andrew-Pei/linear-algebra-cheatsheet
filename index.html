@@ -343,6 +343,41 @@
           <p>否则称为线性相关</p>
         </div>
         <div class="concept-card">
+          <h3>极大线性无关组</h3>
+          <p>向量组 $A$ 的一个部分组 $\{\mathbf{v}_1, \ldots, \mathbf{v}_r\}$ 称为<strong>极大线性无关组</strong>，若满足：</p>
+          <ol>
+            <li>$\mathbf{v}_1, \ldots, \mathbf{v}_r$ 线性无关</li>
+            <li>$A$ 中任一向量都可由 $\mathbf{v}_1, \ldots, \mathbf{v}_r$ 线性表出</li>
+          </ol>
+          <p class="property">等价定义：该部分组线性无关，且从 $A$ 中任取一向量加入后必线性相关</p>
+        </div>
+        <div class="concept-card">
+          <h3>极大线性无关组的性质</h3>
+          <ul>
+            <li>极大线性无关组<strong>不唯一</strong>，但所含向量个数唯一（等于向量组的秩）</li>
+            <li>极大线性无关组与原向量组<strong>等价</strong>（可互相线性表出）</li>
+            <li>两个等价的向量组具有相同的秩</li>
+            <li>若向量组的秩为 $r$，则任意 $r$ 个线性无关的向量均构成极大线性无关组</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>极大线性无关组的求法</h3>
+          <p><strong>初等行变换法</strong>（最常用）：</p>
+          <ol>
+            <li>将向量组中各向量作为<strong>列</strong>构成矩阵 $A = [\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_m]$</li>
+            <li>对 $A$ 施行初等行变换，化为<strong>行阶梯形矩阵</strong> $U$</li>
+            <li>找出 $U$ 中主元（首个非零元素）所在的列，设为第 $j_1, j_2, \ldots, j_r$ 列</li>
+            <li>则原矩阵 $A$ 中对应的列 $\mathbf{v}_{j_1}, \mathbf{v}_{j_2}, \ldots, \mathbf{v}_{j_r}$ 即为极大线性无关组</li>
+          </ol>
+          <p class="property">原理：初等行变换不改变列向量之间的线性关系。若 $U$ 中某列可由主元列线性表出，则 $A$ 中对应列也可由极大线性无关组中的列线性表出</p>
+          <p><strong>逐步添加法</strong>：</p>
+          <ol>
+            <li>任取一个非零向量 $\mathbf{v}_1$</li>
+            <li>逐一检查其余向量，若某向量不能被已选向量线性表出，则加入极大组</li>
+            <li>重复直到所有向量都被检查完毕</li>
+          </ol>
+        </div>
+        <div class="concept-card">
           <h3>基与维数</h3>
           <p><strong>基</strong>：向量空间的一组线性无关的生成集（既线性无关又张成整个空间）</p>
           <p><strong>维数</strong>：基中向量的个数，记作 $\dim(V)$</p>
