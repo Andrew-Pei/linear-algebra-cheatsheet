@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>线性代数 Cheat Sheet</title>
+  <link rel="stylesheet" href="styles.css">
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+</head>
+<body>
+  <header id="header">
+    <div class="header-content">
+      <h1>线性代数 Cheat Sheet</h1>
+      <div class="header-controls">
+        <input type="text" id="search" placeholder="搜索概念..." autocomplete="off">
+        <button id="theme-toggle" title="切换主题">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar">
+      <ul>
+        <li><a href="#vectors" class="nav-link">向量</a></li>
+        <li><a href="#matrices" class="nav-link">矩阵</a></li>
+        <li><a href="#matrix-operations" class="nav-link">矩阵运算</a></li>
+        <li><a href="#determinants" class="nav-link">行列式</a></li>
+        <li><a href="#linear-systems" class="nav-link">线性方程组</a></li>
+        <li><a href="#eigenvalues" class="nav-link">特征值与特征向量</a></li>
+        <li><a href="#vector-spaces" class="nav-link">向量空间</a></li>
+        <li><a href="#linear-transformations" class="nav-link">线性变换</a></li>
+        <li><a href="#orthogonality" class="nav-link">正交性</a></li>
+        <li><a href="#decompositions" class="nav-link">矩阵分解</a></li>
+      </ul>
+    </nav>
+
+    <main id="content">
+
+      <!-- 向量 -->
+      <section id="vectors" class="concept-section">
+        <h2>向量 <span class="en">Vectors</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>向量是具有大小和方向的量，可以表示为有序的数字数组。在 $\mathbb{R}^n$ 中，一个 $n$ 维向量写作：</p>
+          <p>$$\mathbf{v} = \begin{bmatrix} v_1 \\ v_2 \\ \vdots \\ v_n \end{bmatrix}$$</p>
+        </div>
+        <div class="concept-card">
+          <h3>向量加法</h3>
+          <p>对应分量相加：</p>
+          <p>$$\mathbf{u} + \mathbf{v} = \begin{bmatrix} u_1 + v_1 \\ u_2 + v_2 \\ \vdots \\ u_n + v_n \end{bmatrix}$$</p>
+          <p class="property">性质：交换律 $\mathbf{u}+\mathbf{v}=\mathbf{v}+\mathbf{u}$，结合律 $(\mathbf{u}+\mathbf{v})+\mathbf{w}=\mathbf{u}+(\mathbf{v}+\mathbf{w})$</p>
+        </div>
+        <div class="concept-card">
+          <h3>标量乘法</h3>
+          <p>每个分量乘以标量 $c$：</p>
+          <p>$$c\mathbf{v} = \begin{bmatrix} cv_1 \\ cv_2 \\ \vdots \\ cv_n \end{bmatrix}$$</p>
+        </div>
+        <div class="concept-card">
+          <h3>点积（内积）</h3>
+          <p>$$\mathbf{u} \cdot \mathbf{v} = \mathbf{u}^T\mathbf{v} = \sum_{i=1}^{n} u_i v_i = u_1v_1 + u_2v_2 + \cdots + u_nv_n$$</p>
+          <p class="property">性质：$\mathbf{u}\cdot\mathbf{v} = \mathbf{v}\cdot\mathbf{u}$，$\mathbf{u}\cdot\mathbf{u} = \|\mathbf{u}\|^2 \geq 0$</p>
+          <p>几何意义：$\mathbf{u}\cdot\mathbf{v} = \|\mathbf{u}\|\|\mathbf{v}\|\cos\theta$，其中 $\theta$ 为两向量夹角</p>
+          <p>当 $\mathbf{u}\cdot\mathbf{v}=0$ 时，两向量<strong>正交</strong>（垂直）</p>
+        </div>
+        <div class="concept-card">
+          <h3>叉积（外积）</h3>
+          <p>仅适用于三维向量：</p>
+          <p>$$\mathbf{u} \times \mathbf{v} = \begin{bmatrix} u_2v_3 - u_3v_2 \\ u_3v_1 - u_1v_3 \\ u_1v_2 - u_2v_1 \end{bmatrix}$$</p>
+          <p class="property">性质：$\mathbf{u}\times\mathbf{v} = -(\mathbf{v}\times\mathbf{u})$，$\|\mathbf{u}\times\mathbf{v}\| = \|\mathbf{u}\|\|\mathbf{v}\|\sin\theta$</p>
+          <p>结果向量同时垂直于 $\mathbf{u}$ 和 $\mathbf{v}$，方向由右手定则确定</p>
+        </div>
+        <div class="concept-card">
+          <h3>向量范数（长度）</h3>
+          <p><strong>L2 范数</strong>（欧几里得范数）：</p>
+          <p>$$\|\mathbf{v}\|_2 = \sqrt{v_1^2 + v_2^2 + \cdots + v_n^2} = \sqrt{\mathbf{v}\cdot\mathbf{v}}$$</p>
+          <p><strong>L1 范数</strong>：$\|\mathbf{v}\|_1 = |v_1| + |v_2| + \cdots + |v_n|$</p>
+          <p><strong>Lp 范数</strong>：$\|\mathbf{v}\|_p = \left(\sum_{i=1}^{n}|v_i|^p\right)^{1/p}$</p>
+          <p><strong>无穷范数</strong>：$\|\mathbf{v}\|_\infty = \max(|v_1|, |v_2|, \ldots, |v_n|)$</p>
+        </div>
+        <div class="concept-card">
+          <h3>单位向量</h3>
+          <p>长度为 1 的向量。将任意向量归一化：</p>
+          <p>$$\hat{\mathbf{v}} = \frac{\mathbf{v}}{\|\mathbf{v}\|}$$</p>
+        </div>
+      </section>
+
+      <!-- 矩阵 -->
+      <section id="matrices" class="concept-section">
+        <h2>矩阵 <span class="en">Matrices</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>矩阵是按行列排列的数字组成的矩形阵列。一个 $m \times n$ 矩阵有 $m$ 行 $n$ 列：</p>
+          <p>$$A = \begin{bmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{bmatrix}$$</p>
+          <p>记作 $A \in \mathbb{R}^{m \times n}$，元素记为 $a_{ij}$（第 $i$ 行第 $j$ 列）</p>
+        </div>
+        <div class="concept-card">
+          <h3>特殊矩阵</h3>
+          <ul>
+            <li><strong>方阵</strong>：$m = n$（行数等于列数）</li>
+            <li><strong>零矩阵</strong>：所有元素均为 0，记作 $O$</li>
+            <li><strong>单位矩阵</strong>：对角线为 1，其余为 0，记作 $I$ 或 $I_n$</li>
+            <li><strong>对角矩阵</strong>：非对角线元素全为 0，记作 $\text{diag}(d_1, \ldots, d_n)$</li>
+            <li><strong>上三角矩阵</strong>：主对角线以下全为 0</li>
+            <li><strong>下三角矩阵</strong>：主对角线以上全为 0</li>
+            <li><strong>对称矩阵</strong>：$A^T = A$，即 $a_{ij} = a_{ji}$</li>
+            <li><strong>正交矩阵</strong>：$Q^TQ = QQ^T = I$，即 $Q^{-1} = Q^T$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>单位矩阵</h3>
+          <p>$$I_n = \begin{bmatrix} 1 & 0 & \cdots & 0 \\ 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & \cdots & 1 \end{bmatrix}$$</p>
+          <p>对任意矩阵 $A$，有 $AI = IA = A$</p>
+        </div>
+      </section>
+
+      <!-- 矩阵运算 -->
+      <section id="matrix-operations" class="concept-section">
+        <h2>矩阵运算 <span class="en">Matrix Operations</span></h2>
+        <div class="concept-card">
+          <h3>矩阵加法</h3>
+          <p>同维度矩阵对应元素相加：$C = A + B$，其中 $c_{ij} = a_{ij} + b_{ij}$</p>
+          <p class="property">性质：$A+B=B+A$，$(A+B)+C=A+(B+C)$，$A+O=A$</p>
+        </div>
+        <div class="concept-card">
+          <h3>标量乘法</h3>
+          <p>每个元素乘以标量 $c$：$(cA)_{ij} = c \cdot a_{ij}$</p>
+        </div>
+        <div class="concept-card">
+          <h3>矩阵乘法</h3>
+          <p>$A \in \mathbb{R}^{m \times k}$，$B \in \mathbb{R}^{k \times n}$，则 $C = AB \in \mathbb{R}^{m \times n}$：</p>
+          <p>$$c_{ij} = \sum_{l=1}^{k} a_{il}b_{lj}$$</p>
+          <p>即 $c_{ij}$ 是 $A$ 的第 $i$ 行与 $B$ 的第 $j$ 列的点积</p>
+          <p class="property">性质：</p>
+          <ul>
+            <li>结合律：$(AB)C = A(BC)$</li>
+            <li>分配律：$A(B+C) = AB+AC$</li>
+            <li><strong>不满足交换律</strong>：$AB \neq BA$（一般情况下）</li>
+            <li>$AB = O$ 不一定意味着 $A=O$ 或 $B=O$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>转置</h3>
+          <p>将矩阵的行和列互换：$(A^T)_{ij} = a_{ji}$</p>
+          <p class="property">性质：$(A^T)^T = A$，$(A+B)^T = A^T+B^T$，$(AB)^T = B^TA^T$，$(cA)^T = cA^T$</p>
+        </div>
+        <div class="concept-card">
+          <h3>逆矩阵</h3>
+          <p>对于方阵 $A$，若存在 $A^{-1}$ 使得 $AA^{-1} = A^{-1}A = I$，则称 $A$ 可逆（非奇异）</p>
+          <p class="property">性质：</p>
+          <ul>
+            <li>$(A^{-1})^{-1} = A$</li>
+            <li>$(AB)^{-1} = B^{-1}A^{-1}$</li>
+            <li>$(A^T)^{-1} = (A^{-1})^T$</li>
+            <li>$(cA)^{-1} = \frac{1}{c}A^{-1}$</li>
+            <li>$A$ 可逆 $\Leftrightarrow$ $\det(A) \neq 0$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>迹</h3>
+          <p>方阵对角元素之和：</p>
+          <p>$$\text{tr}(A) = \sum_{i=1}^{n} a_{ii}$$</p>
+          <p class="property">性质：$\text{tr}(A+B)=\text{tr}(A)+\text{tr}(B)$，$\text{tr}(AB)=\text{tr}(BA)$，$\text{tr}(A^T)=\text{tr}(A)$</p>
+        </div>
+        <div class="concept-card">
+          <h3>秩</h3>
+          <p>矩阵中线性无关的行（或列）的最大数目，记作 $\text{rank}(A)$</p>
+          <p class="property">性质：</p>
+          <ul>
+            <li>$\text{rank}(A) = \text{rank}(A^T)$</li>
+            <li>$\text{rank}(AB) \leq \min(\text{rank}(A), \text{rank}(B))$</li>
+            <li>$\text{rank}(A) \leq \min(m, n)$</li>
+            <li>$A$ 可逆 $\Leftrightarrow$ $\text{rank}(A) = n$（满秩）</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 行列式 -->
+      <section id="determinants" class="concept-section">
+        <h2>行列式 <span class="en">Determinants</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>方阵 $A$ 的行列式是一个标量值，记作 $\det(A)$ 或 $|A|$</p>
+          <p><strong>2×2 矩阵</strong>：</p>
+          <p>$$\det\begin{bmatrix} a & b \\ c & d \end{bmatrix} = ad - bc$$</p>
+          <p><strong>3×3 矩阵</strong>（按第一行展开）：</p>
+          <p>$$\det\begin{bmatrix} a & b & c \\ d & e & f \\ g & h & i \end{bmatrix} = a(ei-fh) - b(di-fg) + c(dh-eg)$$</p>
+        </div>
+        <div class="concept-card">
+          <h3>性质</h3>
+          <ul>
+            <li>$\det(AB) = \det(A)\det(B)$</li>
+            <li>$\det(A^T) = \det(A)$</li>
+            <li>$\det(A^{-1}) = \frac{1}{\det(A)}$</li>
+            <li>$\det(cA) = c^n\det(A)$（$n$ 为矩阵阶数）</li>
+            <li>交换两行（列），行列式变号</li>
+            <li>某行（列）全为 0，行列式为 0</li>
+            <li>两行（列）成比例，行列式为 0</li>
+            <li>三角矩阵的行列式等于对角元素之积</li>
+            <li>$\det(I) = 1$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>几何意义</h3>
+          <p>$|\det(A)|$ 表示线性变换 $A$ 对空间的<strong>缩放因子</strong>（面积/体积的放大倍数）</p>
+          <p>$\det(A) > 0$：保持方向；$\det(A) < 0$：翻转方向；$\det(A) = 0$：降维（压缩空间）</p>
+        </div>
+        <div class="concept-card">
+          <h3>伴随矩阵与逆矩阵</h3>
+          <p>$$A^{-1} = \frac{1}{\det(A)}\text{adj}(A)$$</p>
+          <p>其中 $\text{adj}(A)$ 是伴随矩阵（代数余子式矩阵的转置）</p>
+        </div>
+      </section>
+
+      <!-- 线性方程组 -->
+      <section id="linear-systems" class="concept-section">
+        <h2>线性方程组 <span class="en">Linear Systems</span></h2>
+        <div class="concept-card">
+          <h3>矩阵形式</h3>
+          <p>$A\mathbf{x} = \mathbf{b}$，其中 $A \in \mathbb{R}^{m \times n}$，$\mathbf{x} \in \mathbb{R}^n$，$\mathbf{b} \in \mathbb{R}^m$</p>
+        </div>
+        <div class="concept-card">
+          <h3>解的情况</h3>
+          <ul>
+            <li><strong>唯一解</strong>：$\text{rank}(A) = \text{rank}([A|\mathbf{b}]) = n$</li>
+            <li><strong>无穷多解</strong>：$\text{rank}(A) = \text{rank}([A|\mathbf{b}]) < n$</li>
+            <li><strong>无解</strong>：$\text{rank}(A) < \text{rank}([A|\mathbf{b}])$</li>
+          </ul>
+          <p>方阵情形：$A\mathbf{x}=\mathbf{b}$ 有唯一解 $\Leftrightarrow$ $A$ 可逆 $\Leftrightarrow$ $\det(A)\neq 0$</p>
+        </div>
+        <div class="concept-card">
+          <h3>高斯消元法</h3>
+          <p>通过初等行变换将增广矩阵 $[A|\mathbf{b}]$ 化为上三角（行阶梯形），然后回代求解</p>
+          <p>初等行变换：</p>
+          <ol>
+            <li>交换两行</li>
+            <li>某行乘以非零常数</li>
+            <li>某行加上另一行的倍数</li>
+          </ol>
+        </div>
+        <div class="concept-card">
+          <h3>克拉默法则</h3>
+          <p>当 $A$ 为 $n \times n$ 可逆矩阵时，$x_i = \frac{\det(A_i)}{\det(A)}$</p>
+          <p>其中 $A_i$ 是将 $A$ 的第 $i$ 列替换为 $\mathbf{b}$ 得到的矩阵</p>
+        </div>
+        <div class="concept-card">
+          <h3>最小二乘解</h3>
+          <p>当 $A\mathbf{x}=\mathbf{b}$ 无解（超定系统）时，最小二乘解为：</p>
+          <p>$$\hat{\mathbf{x}} = (A^TA)^{-1}A^T\mathbf{b}$$</p>
+          <p>正规方程：$A^TA\mathbf{x} = A^T\mathbf{b}$</p>
+        </div>
+      </section>
+
+      <!-- 特征值与特征向量 -->
+      <section id="eigenvalues" class="concept-section">
+        <h2>特征值与特征向量 <span class="en">Eigenvalues & Eigenvectors</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>对于方阵 $A$，若存在标量 $\lambda$ 和非零向量 $\mathbf{v}$ 使得：</p>
+          <p>$$A\mathbf{v} = \lambda\mathbf{v}$$</p>
+          <p>则 $\lambda$ 称为 $A$ 的<strong>特征值</strong>，$\mathbf{v}$ 称为对应的<strong>特征向量</strong></p>
+        </div>
+        <div class="concept-card">
+          <h3>特征方程</h3>
+          <p>$$\det(A - \lambda I) = 0$$</p>
+          <p>这是一个关于 $\lambda$ 的 $n$ 次多项式方程，其根即为特征值</p>
+        </div>
+        <div class="concept-card">
+          <h3>性质</h3>
+          <ul>
+            <li>特征值之和 = 迹：$\sum\lambda_i = \text{tr}(A)$</li>
+            <li>特征值之积 = 行列式：$\prod\lambda_i = \det(A)$</li>
+            <li>$A^k$ 的特征值为 $\lambda_i^k$</li>
+            <li>$A^{-1}$ 的特征值为 $1/\lambda_i$</li>
+            <li>$A + cI$ 的特征值为 $\lambda_i + c$</li>
+            <li>不同特征值对应的特征向量线性无关</li>
+            <li>对称矩阵的特征值全为实数，且不同特征值对应的特征向量正交</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>对角化</h3>
+          <p>若 $A$ 有 $n$ 个线性无关的特征向量，则可对角化：</p>
+          <p>$$A = P\Lambda P^{-1}$$</p>
+          <p>其中 $\Lambda = \text{diag}(\lambda_1, \ldots, \lambda_n)$，$P$ 的列为特征向量</p>
+          <p>对称矩阵必可正交对角化：$A = Q\Lambda Q^T$，其中 $Q$ 为正交矩阵</p>
+        </div>
+        <div class="concept-card">
+          <h3>谱分解</h3>
+          <p>对称矩阵 $A$ 可分解为：</p>
+          <p>$$A = \sum_{i=1}^{n} \lambda_i \mathbf{q}_i\mathbf{q}_i^T$$</p>
+          <p>其中 $\mathbf{q}_i$ 是正交特征向量</p>
+        </div>
+      </section>
+
+      <!-- 向量空间 -->
+      <section id="vector-spaces" class="concept-section">
+        <h2>向量空间 <span class="en">Vector Spaces</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>向量空间 $V$ 是一个非空集合，在其上定义了加法和标量乘法，且满足以下公理：</p>
+          <ul>
+            <li>加法封闭性：$\mathbf{u}, \mathbf{v} \in V \Rightarrow \mathbf{u}+\mathbf{v} \in V$</li>
+            <li>标量乘法封闭性：$\mathbf{v} \in V, c \in \mathbb{R} \Rightarrow c\mathbf{v} \in V$</li>
+            <li>加法交换律：$\mathbf{u}+\mathbf{v} = \mathbf{v}+\mathbf{u}$</li>
+            <li>加法结合律：$(\mathbf{u}+\mathbf{v})+\mathbf{w} = \mathbf{u}+(\mathbf{v}+\mathbf{w})$</li>
+            <li>存在零元：$\exists\,\mathbf{0} \in V$，使 $\mathbf{v}+\mathbf{0}=\mathbf{v}$</li>
+            <li>存在负元：$\exists\,(-\mathbf{v}) \in V$，使 $\mathbf{v}+(-\mathbf{v})=\mathbf{0}$</li>
+            <li>分配律：$c(\mathbf{u}+\mathbf{v})=c\mathbf{u}+c\mathbf{v}$，$(c+d)\mathbf{v}=c\mathbf{v}+d\mathbf{v}$</li>
+            <li>$c(d\mathbf{v})=(cd)\mathbf{v}$，$1\mathbf{v}=\mathbf{v}$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>子空间</h3>
+          <p>向量空间 $V$ 的子集 $W$ 是子空间，当且仅当：</p>
+          <ol>
+            <li>$\mathbf{0} \in W$</li>
+            <li>$\mathbf{u}, \mathbf{v} \in W \Rightarrow \mathbf{u}+\mathbf{v} \in W$</li>
+            <li>$\mathbf{v} \in W, c \in \mathbb{R} \Rightarrow c\mathbf{v} \in W$</li>
+          </ol>
+        </div>
+        <div class="concept-card">
+          <h3>线性无关</h3>
+          <p>向量组 $\{\mathbf{v}_1, \ldots, \mathbf{v}_k\}$ 线性无关，当且仅当</p>
+          <p>$$c_1\mathbf{v}_1 + c_2\mathbf{v}_2 + \cdots + c_k\mathbf{v}_k = \mathbf{0} \implies c_1 = c_2 = \cdots = c_k = 0$$</p>
+          <p>否则称为线性相关</p>
+        </div>
+        <div class="concept-card">
+          <h3>基与维数</h3>
+          <p><strong>基</strong>：向量空间的一组线性无关的生成集（既线性无关又张成整个空间）</p>
+          <p><strong>维数</strong>：基中向量的个数，记作 $\dim(V)$</p>
+          <p>矩阵 $A$ 的列空间维数 = $\text{rank}(A)$</p>
+        </div>
+        <div class="concept-card">
+          <h3>四个基本子空间</h3>
+          <p>对于 $A \in \mathbb{R}^{m \times n}$：</p>
+          <ul>
+            <li><strong>列空间</strong> $\text{Col}(A)$：$A$ 的列向量的线性组合，维数 $= \text{rank}(A)$</li>
+            <li><strong>零空间</strong> $\text{Null}(A)$：$A\mathbf{x}=\mathbf{0}$ 的解集，维数 $= n - \text{rank}(A)$</li>
+            <li><strong>行空间</strong> $\text{Row}(A) = \text{Col}(A^T)$：$A$ 的行向量的线性组合，维数 $= \text{rank}(A)$</li>
+            <li><strong>左零空间</strong> $\text{Null}(A^T)$：$A^T\mathbf{y}=\mathbf{0}$ 的解集，维数 $= m - \text{rank}(A)$</li>
+          </ul>
+          <p>秩-零度定理：$\text{rank}(A) + \dim(\text{Null}(A)) = n$</p>
+        </div>
+      </section>
+
+      <!-- 线性变换 -->
+      <section id="linear-transformations" class="concept-section">
+        <h2>线性变换 <span class="en">Linear Transformations</span></h2>
+        <div class="concept-card">
+          <h3>定义</h3>
+          <p>映射 $T: V \to W$ 是线性变换，当且仅当对所有 $\mathbf{u}, \mathbf{v} \in V$ 和标量 $c$：</p>
+          <ol>
+            <li>$T(\mathbf{u}+\mathbf{v}) = T(\mathbf{u})+T(\mathbf{v})$（加性）</li>
+            <li>$T(c\mathbf{u}) = cT(\mathbf{u})$（齐性）</li>
+          </ol>
+          <p>等价地：$T(c\mathbf{u}+\mathbf{v}) = cT(\mathbf{u})+T(\mathbf{v})$</p>
+        </div>
+        <div class="concept-card">
+          <h3>矩阵表示</h3>
+          <p>每个线性变换都可用矩阵表示。给定基后：</p>
+          <p>$$T(\mathbf{x}) = A\mathbf{x}$$</p>
+          <p>$A$ 的第 $j$ 列是 $T(\mathbf{e}_j)$ 在目标基下的坐标</p>
+        </div>
+        <div class="concept-card">
+          <h3>核与像</h3>
+          <p><strong>核</strong>（零空间）：$\ker(T) = \{\mathbf{x} \in V : T(\mathbf{x}) = \mathbf{0}\}$</p>
+          <p><strong>像</strong>（值域）：$\text{Im}(T) = \{T(\mathbf{x}) : \mathbf{x} \in V\}$</p>
+          <p>维数定理：$\dim(\ker(T)) + \dim(\text{Im}(T)) = \dim(V)$</p>
+        </div>
+        <div class="concept-card">
+          <h3>常见线性变换</h3>
+          <ul>
+            <li><strong>旋转</strong>（逆时针 $\theta$）：$R = \begin{bmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{bmatrix}$</li>
+            <li><strong>缩放</strong>：$S = \begin{bmatrix} s_x & 0 \\ 0 & s_y \end{bmatrix}$</li>
+            <li><strong>剪切</strong>：$H = \begin{bmatrix} 1 & k \\ 0 & 1 \end{bmatrix}$</li>
+            <li><strong>投影</strong>：$P^2 = P$（幂等矩阵）</li>
+            <li><strong>反射</strong>：$F^2 = I$（对合矩阵）</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 正交性 -->
+      <section id="orthogonality" class="concept-section">
+        <h2>正交性 <span class="en">Orthogonality</span></h2>
+        <div class="concept-card">
+          <h3>内积空间</h3>
+          <p>定义了内积 $\langle \mathbf{u}, \mathbf{v} \rangle$ 的向量空间，满足：</p>
+          <ul>
+            <li>对称性：$\langle \mathbf{u}, \mathbf{v} \rangle = \langle \mathbf{v}, \mathbf{u} \rangle$</li>
+            <li>线性：$\langle c\mathbf{u}+\mathbf{v}, \mathbf{w} \rangle = c\langle \mathbf{u}, \mathbf{w} \rangle + \langle \mathbf{v}, \mathbf{w} \rangle$</li>
+            <li>正定性：$\langle \mathbf{v}, \mathbf{v} \rangle \geq 0$，等号成立当且仅当 $\mathbf{v}=\mathbf{0}$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>正交与正交集</h3>
+          <p>两向量正交：$\langle \mathbf{u}, \mathbf{v} \rangle = 0$，记作 $\mathbf{u} \perp \mathbf{v}$</p>
+          <p><strong>正交集</strong>：集合中任意两个不同向量正交</p>
+          <p><strong>标准正交集</strong>：正交且每个向量都是单位向量</p>
+          <p>非零正交向量组一定线性无关</p>
+        </div>
+        <div class="concept-card">
+          <h3>Gram-Schmidt 正交化</h3>
+          <p>将线性无关向量组 $\{\mathbf{v}_1, \ldots, \mathbf{v}_k\}$ 转化为正交组 $\{\mathbf{u}_1, \ldots, \mathbf{u}_k\}$：</p>
+          <p>$$\mathbf{u}_1 = \mathbf{v}_1$$</p>
+          <p>$$\mathbf{u}_k = \mathbf{v}_k - \sum_{j=1}^{k-1} \frac{\langle \mathbf{v}_k, \mathbf{u}_j \rangle}{\langle \mathbf{u}_j, \mathbf{u}_j \rangle}\mathbf{u}_j, \quad k=2,3,\ldots$$</p>
+          <p>归一化：$\mathbf{e}_k = \frac{\mathbf{u}_k}{\|\mathbf{u}_k\|}$ 得到标准正交组</p>
+        </div>
+        <div class="concept-card">
+          <h3>正交投影</h3>
+          <p>向量 $\mathbf{v}$ 到子空间 $W$（基为 $\{\mathbf{u}_1, \ldots, \mathbf{u}_k\}$）的投影：</p>
+          <p>$$\text{proj}_W \mathbf{v} = \sum_{i=1}^{k} \frac{\langle \mathbf{v}, \mathbf{u}_i \rangle}{\langle \mathbf{u}_i, \mathbf{u}_i \rangle}\mathbf{u}_i$$</p>
+          <p>投影矩阵：$P = A(A^TA)^{-1}A^T$（$A$ 的列为 $W$ 的基）</p>
+          <p>性质：$P^2 = P$，$P^T = P$</p>
+        </div>
+        <div class="concept-card">
+          <h3>正交补</h3>
+          <p>子空间 $W$ 的正交补：$W^\perp = \{\mathbf{v} : \mathbf{v} \perp \mathbf{w}, \forall \mathbf{w} \in W\}$</p>
+          <p>$\dim(W) + \dim(W^\perp) = \dim(V)$，且 $V = W \oplus W^\perp$</p>
+        </div>
+      </section>
+
+      <!-- 矩阵分解 -->
+      <section id="decompositions" class="concept-section">
+        <h2>矩阵分解 <span class="en">Matrix Decompositions</span></h2>
+        <div class="concept-card">
+          <h3>LU 分解</h3>
+          <p>$$A = LU$$</p>
+          <p>其中 $L$ 为下三角矩阵，$U$ 为上三角矩阵</p>
+          <p>用途：高效求解线性方程组 $A\mathbf{x}=\mathbf{b}$（先解 $L\mathbf{y}=\mathbf{b}$，再解 $U\mathbf{x}=\mathbf{y}$）</p>
+          <p>带选主元的分解：$PA = LU$（$P$ 为置换矩阵）</p>
+        </div>
+        <div class="concept-card">
+          <h3>QR 分解</h3>
+          <p>$$A = QR$$</p>
+          <p>其中 $Q$ 为正交矩阵（$Q^TQ = I$），$R$ 为上三角矩阵</p>
+          <p>用途：最小二乘问题、特征值算法（QR 算法）</p>
+          <p>可通过 Gram-Schmidt 正交化求得</p>
+        </div>
+        <div class="concept-card">
+          <h3>特征值分解 (EVD)</h3>
+          <p>$$A = P\Lambda P^{-1}$$</p>
+          <p>其中 $\Lambda$ 为对角矩阵（特征值），$P$ 的列为特征向量</p>
+          <p>条件：$A$ 有 $n$ 个线性无关的特征向量</p>
+          <p>对称矩阵：$A = Q\Lambda Q^T$（$Q$ 正交）</p>
+        </div>
+        <div class="concept-card">
+          <h3>奇异值分解 (SVD)</h3>
+          <p>任意 $m \times n$ 矩阵 $A$ 都可分解为：</p>
+          <p>$$A = U\Sigma V^T$$</p>
+          <p>其中：</p>
+          <ul>
+            <li>$U \in \mathbb{R}^{m \times m}$：正交矩阵，列为左奇异向量</li>
+            <li>$\Sigma \in \mathbb{R}^{m \times n}$：对角矩阵，对角元素为奇异值 $\sigma_i \geq 0$</li>
+            <li>$V \in \mathbb{R}^{n \times n}$：正交矩阵，列为右奇异向量</li>
+          </ul>
+          <p>关系：$A^TA$ 的特征值 = $\sigma_i^2$，$V$ 的列是 $A^TA$ 的特征向量</p>
+        </div>
+        <div class="concept-card">
+          <h3>SVD 的应用</h3>
+          <ul>
+            <li><strong>矩阵近似</strong>：截断 SVD $A_k = \sum_{i=1}^{k}\sigma_i\mathbf{u}_i\mathbf{v}_i^T$ 是最佳秩 $k$ 近似</li>
+            <li><strong>伪逆</strong>：$A^+ = V\Sigma^+U^T$（$\Sigma^+$ 将非零奇异值取倒数后转置）</li>
+            <li><strong>主成分分析 (PCA)</strong>：对中心化数据做 SVD</li>
+            <li><strong>数据压缩</strong>：保留前 $k$ 大奇异值</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>Cholesky 分解</h3>
+          <p>对称正定矩阵 $A$ 可分解为：</p>
+          <p>$$A = LL^T$$</p>
+          <p>其中 $L$ 为下三角矩阵且对角元素为正</p>
+          <p>比 LU 分解更快（计算量约为其一半）</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer>
+    <p>线性代数 Cheat Sheet &copy; 2026 | Powered by MathJax</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
