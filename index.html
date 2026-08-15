@@ -181,6 +181,42 @@
             <li>$A$ 可逆 $\Leftrightarrow$ $\text{rank}(A) = n$（满秩）</li>
           </ul>
         </div>
+        <div class="concept-card">
+          <h3>初等矩阵</h3>
+          <p>由单位矩阵 $I$ 经过<strong>一次</strong>初等变换得到的矩阵称为<strong>初等矩阵</strong>。三种初等变换对应三种初等矩阵：</p>
+          <ul>
+            <li><strong>第一类</strong> $E(i,j)$：交换 $I$ 的第 $i$ 行与第 $j$ 行</li>
+            <li><strong>第二类</strong> $E(i(k))$：$I$ 的第 $i$ 行乘以非零常数 $k$（$k \neq 0$）</li>
+            <li><strong>第三类</strong> $E(i,j(k))$：$I$ 的第 $i$ 行加上第 $j$ 行的 $k$ 倍</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>初等矩阵的性质</h3>
+          <ul>
+            <li>初等矩阵均可逆，且其逆矩阵仍为同类型初等矩阵：
+              <ul>
+                <li>$E(i,j)^{-1} = E(i,j)$</li>
+                <li>$E(i(k))^{-1} = E\!\left(i\!\left(\tfrac{1}{k}\right)\right)$</li>
+                <li>$E(i,j(k))^{-1} = E(i,j(-k))$</li>
+              </ul>
+            </li>
+            <li>初等矩阵的转置仍为初等矩阵</li>
+            <li>对 $A$ <strong>左乘</strong>初等矩阵 $E$ $\Leftrightarrow$ 对 $A$ 施行一次相应的<strong>初等行变换</strong></li>
+            <li>对 $A$ <strong>右乘</strong>初等矩阵 $E$ $\Leftrightarrow$ 对 $A$ 施行一次相应的<strong>初等列变换</strong></li>
+            <li>$\det E(i,j) = -1$，$\det E(i(k)) = k$，$\det E(i,j(k)) = 1$</li>
+          </ul>
+        </div>
+        <div class="concept-card">
+          <h3>初等矩阵与可逆性</h3>
+          <p>以下命题相互等价：</p>
+          <ul>
+            <li>$A$ 可逆</li>
+            <li>$A$ 可表示为有限个初等矩阵的乘积：$A = P_1 P_2 \cdots P_s$</li>
+            <li>存在初等矩阵 $P_1, \ldots, P_s$ 使得 $P_s \cdots P_1 A = I$</li>
+            <li>$A$ 与单位矩阵等价（$A$ 可经初等变换化为 $I$）</li>
+          </ul>
+          <p class="property">求逆原理：若 $P_s \cdots P_1 A = I$，则 $A^{-1} = P_s \cdots P_1$。对增广矩阵 $[A \mid I]$ 施行初等行变换化为 $[I \mid A^{-1}]$，右半部分即为逆矩阵</p>
+        </div>
       </section>
 
       <!-- 行列式 -->
